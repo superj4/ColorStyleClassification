@@ -1,10 +1,10 @@
 package ColorStyleClassification;
-public class colorRange {
+public class ColorRange {
 	int r;
 	int g;
 	int b;
 	int numBucket;
-	public colorRange(int R, int G, int B, int numSharePerDimension){
+	public ColorRange(int R, int G, int B, int numSharePerDimension){
 		this.r = R;
 		this.g = G;
 		this.b = B;
