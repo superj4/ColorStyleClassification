@@ -9,7 +9,7 @@ public class Cluster {
 
 	public Cluster(Color firstPoint) {
 		points = new ArrayList<Color>();
-		addPoint(firstPoint);
+		//addPoint(firstPoint);
 		centroid = firstPoint;
 	}
 

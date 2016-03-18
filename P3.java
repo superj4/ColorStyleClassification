@@ -3,7 +3,6 @@ package ColorStyleClassification;
 import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -27,8 +26,9 @@ public class P3 {
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
 		String header = "imageID";
 		for (int i = 0; i < Math.pow(numSharePerDimension, 3); i++) {
-			header = header + "," + i;
+			header = header + ",range" + i;
 		}
+		header = header + ",grayscale,contrast";
 		bw.write(header);
 		bw.newLine();
 		for (File path : paths) {
@@ -51,15 +51,22 @@ public class P3 {
 		Map imgRange = new HashMap();
 		StringBuilder sb = new StringBuilder();
 		sb.append(id);
-		double grayscale = 0;
+		double sumGrayscale = 0;
+		double lightest = 0;
+		double darkest = 255;
 		for (int i = 0; i < 5; i++) {
-			int range = new ColorRange(pointsClusters.get(i).getCentroid().r,
-					pointsClusters.get(i).getCentroid().g, pointsClusters
-							.get(i).getCentroid().b, numSharePerDimension).numBucket;
-
+			int R = pointsClusters.get(i).getCentroid().r;
+			int G = pointsClusters.get(i).getCentroid().g;
+			int B = pointsClusters.get(i).getCentroid().b;
+			int range = new ColorRange(R, G, B, numSharePerDimension).numBucket;
 			int clusterSize = pointsClusters.get(i).getPoints().size();
 			double weight = clusterSize / (double) size;
 			imgRange.put(range, weight);
+			double grayscale = 0.299 * R + 0.587 * G + 0.114 * B;
+			sumGrayscale = sumGrayscale + grayscale;
+			lightest = Math.max(grayscale, lightest);
+			darkest = Math.min(grayscale, darkest);
+
 		}
 		for (int j = 0; j < Math.pow(numSharePerDimension, 3); j++) {
 			if (imgRange.containsKey(j)) {
@@ -69,7 +76,11 @@ public class P3 {
 			}
 		}
 		// compute grayscale
-
+		sumGrayscale = sumGrayscale / 5;
+		sb.append("," + sumGrayscale);
+		// compute contrast
+		double contrast = lightest - darkest;
+		sb.append("," + contrast);
 		return sb.toString();
 	}
 
