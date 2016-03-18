@@ -47,8 +47,7 @@ public class CSVReader {
 					e.printStackTrace();
 				}
 			}
-		}
-		
+		}		
 		return maps;
 	  }
 
