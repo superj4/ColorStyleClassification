@@ -10,14 +10,14 @@ public class colorRange {
 		this.g = G;
 		this.b = B;
 		int rangeWidth = 256/numSharePerDimension;
-		numBucket = rangeDivisor(rangeWidth);
+		numBucket = rangeDivisor(rangeWidth, numSharePerDimension);
 	}
-	private int rangeDivisor(int rangeWidth)
+	private int rangeDivisor(int rangeWidth, int numSharePerDimension)
 	{
 		int x = r/rangeWidth;
 		int y = g/rangeWidth;
 		int z = b/rangeWidth;
-		int num = x + y * rangeWidth + z * rangeWidth * rangeWidth;
+		int num = x + y * numSharePerDimension + z * numSharePerDimension * numSharePerDimension;
 		return num;
 	}
 }
