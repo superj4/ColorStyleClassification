@@ -1,3 +1,4 @@
+library("e1071")
 train<-read.csv("train.csv")
 test<-read.csv("test.csv")
 nb<-ncol(train)
