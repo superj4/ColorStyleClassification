@@ -10,7 +10,7 @@ public class P3 {
 		KMeans kMeans = new KMeans(colors, 5);
 		List<Cluster> pointsClusters = kMeans.getPointsClusters();
 		for (int i = 0; i < kMeans.k; i++)
-			System.out.println("Cluster " + i + ": " + pointsClusters.get(i).getCentroid());
+			System.out.println("Cluster " + i + ": " + pointsClusters.get(i).getCentroid() + " weight: " + (double) pointsClusters.get(i).getPoints().size() / colors.size());
 	}
 
 }
