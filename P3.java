@@ -61,8 +61,8 @@ public class P3 {
 		Map imgRange = new HashMap();
 		StringBuilder sb = new StringBuilder(); 
 		sb.append(id);
+		double grayscale = 0;
 		for (int i = 0; i < 5; i++){
-			
 			int range = new ColorRange( pointsClusters.get(i).getCentroid().r, pointsClusters.get(i).getCentroid().g, pointsClusters.get(i).getCentroid().b, numSharePerDimension).numBucket;
 			
 			int clusterSize = pointsClusters.get(i).getPoints().size();
@@ -78,7 +78,7 @@ public class P3 {
 				sb.append(",0");
 			}
 		}
-		//grayscale
+		//compute grayscale
 		
 		return sb.toString();
 	}
