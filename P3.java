@@ -13,18 +13,15 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
+import ColorStyleClassification1.color;
+import ColorStyleClassification1.colorRange;
+
+
 public class P3 {
 	public static final int numSharePerDimension = 4;
 
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-/*
-		List<Color> colors = img.readIMG("/Users/shuangsu/Desktop/2.jpg");
-		KMeans kMeans = new KMeans(colors, 5);
-		List<Cluster> pointsClusters = kMeans.getPointsClusters();
-		for (int i = 0; i < kMeans.k; i++)
-			System.out.println("Cluster " + i + ": " + pointsClusters.get(i).getCentroid() + " weight: " + (double) pointsClusters.get(i).getPoints().size() / colors.size());
-*/
 		//read files in the image directory
 		File f = new File("/Users/jessica/Desktop/test");
 		File[] paths;
@@ -35,8 +32,9 @@ public class P3 {
 		String header = "imageID";
 		for ( int i = 0; i < Math.pow(numSharePerDimension, 3); i++ )
 		{
-			header = header + "," + i;
+			header = header + ",range" + i;
 		}
+		header = header + ",grayscale,contrast";
 		bw.write(header);
 		bw.newLine();
 		for (File path:paths)
@@ -61,25 +59,38 @@ public class P3 {
 		Map imgRange = new HashMap();
 		StringBuilder sb = new StringBuilder(); 
 		sb.append(id);
-		double grayscale = 0;
+		double sumGrayscale = 0;
+		double lightest = 0;
+		double darkest = 255;
 		for (int i = 0; i < 5; i++){
-			int range = new ColorRange( pointsClusters.get(i).getCentroid().r, pointsClusters.get(i).getCentroid().g, pointsClusters.get(i).getCentroid().b, numSharePerDimension).numBucket;
-			
+			int R = pointsClusters.get(i).getCentroid().r;
+			int G = pointsClusters.get(i).getCentroid().g;
+			int B = pointsClusters.get(i).getCentroid().b;
+			int range = new colorRange( R, G, B, numSharePerDimension).numBucket;
 			int clusterSize = pointsClusters.get(i).getPoints().size();
 			double weight = clusterSize/(double) size;
 			imgRange.put(range, weight);
+			double grayscale = 0.299*R + 0.587*G + 0.114*B;
+			sumGrayscale = sumGrayscale + grayscale;
+			lightest = Math.max(grayscale, lightest);
+			darkest = Math.min(grayscale, darkest);
+			
 		}
 		for(int j = 0; j < Math.pow(numSharePerDimension, 3); j++)
 		{
 			if (imgRange.containsKey(j)){
-				sb.append(","+imgRange.get(j));
+				sb.append("," + imgRange.get(j));
 			}
 			else{
 				sb.append(",0");
 			}
 		}
 		//compute grayscale
-		
+		sumGrayscale = sumGrayscale/5;
+		sb.append("," + sumGrayscale);
+		//compute contrast
+		double contrast = lightest -  darkest;
+		sb.append("," + contrast);
 		return sb.toString();
 	}
 	
