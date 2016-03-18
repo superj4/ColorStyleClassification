@@ -2,7 +2,6 @@ package ColorStyleClassification;
 import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -12,10 +11,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
-
-import ColorStyleClassification1.color;
-import ColorStyleClassification1.colorRange;
-
 
 public class P3 {
 	public static final int numSharePerDimension = 4;
@@ -66,7 +61,7 @@ public class P3 {
 			int R = pointsClusters.get(i).getCentroid().r;
 			int G = pointsClusters.get(i).getCentroid().g;
 			int B = pointsClusters.get(i).getCentroid().b;
-			int range = new colorRange( R, G, B, numSharePerDimension).numBucket;
+			int range = new ColorRange( R, G, B, numSharePerDimension).numBucket;
 			int clusterSize = pointsClusters.get(i).getPoints().size();
 			double weight = clusterSize/(double) size;
 			imgRange.put(range, weight);
