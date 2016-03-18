@@ -1,5 +1,4 @@
-package imgsim;
-
+package ColorStyleClassification;
 public class colorRange {
 	int r;
 	int g;
