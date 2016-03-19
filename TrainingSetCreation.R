@@ -11,4 +11,4 @@ test <- all[-train_ind, ]
 write.csv(train, file = "train.csv", row.names = FALSE)
 write.csv(test, file = "testresult.csv", row.names = FALSE)
 finalTest <- test[,0:67]
-write.csv(test, file = "test.csv", row.names = FALSE)
+write.csv(finalTest, file = "test.csv", row.names = FALSE)
