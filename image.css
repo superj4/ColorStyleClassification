@@ -33,6 +33,8 @@ img {
    width:220;
    height:220;
    position: relative;
+   border:3px solid #8A2BE2;
+
 }
 
 .footer {
