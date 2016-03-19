@@ -1,4 +1,4 @@
-df1<-read.csv("testFiles/out.csv")
+df1<-read.csv("testFiles/out5.csv")
 df2<-read.csv("testFiles/classification.csv")
 all<-merge(x = df1, y = df2)
 ## 75% of the sample size

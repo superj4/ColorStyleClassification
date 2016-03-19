@@ -7,4 +7,4 @@ fit <- randomForest(as.factor(Style) ~ range0 + range1 + range2 + range3 + range
 varImpPlot(fit)
 Prediction <- predict(fit, test)
 submit <- data.frame(ID = test$imageID, Category = Prediction)
-write.csv(submit, file = "testFiles/firstforest.csv", row.names = FALSE)
+write.csv(submit, file = "testFiles/forest.csv", row.names = FALSE)

@@ -25,6 +25,9 @@ public class HTMLGenerator {
 			// use comma as separator
 			String[] entry = line.trim().split(cvsSplitBy);
 			String img = entry[0].trim();
+			if (img.charAt(0) == '"' && img.charAt(img.length()-1) == '"') {
+				img = img.substring(1, img.length()-1);
+			}
 			String cat = entry[1].trim();
 			if (maps.containsKey(cat)) {
 				ArrayList<Integer> list = maps.get(cat);
@@ -131,8 +134,9 @@ public class HTMLGenerator {
 				2, 66, 184, 185, 191, 234, 239, 5, 11, 44, 51, 115, 139, 204,
 				218, 246));
 		try {
-			Map<String, ArrayList<Integer>> cateMaps = csvToMap("/Users/shuangsu/Documents/workspace/DM/src/ColorStyleClassification/testFiles/firstforest.csv");
+			Map<String, ArrayList<Integer>> cateMaps = csvToMap("/Users/shuangsu/Documents/workspace/DM/src/ColorStyleClassification/testFiles/forest.csv");
 			process(cateMaps, idMap, otherFormat);
+			System.out.println("Result webpage ready!");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
