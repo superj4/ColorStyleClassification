@@ -24,7 +24,7 @@ public class HTMLGenerator {
 		}
 		while ((line = br.readLine()) != null) {
 			// use comma as separator
-			String[] entry = line.split(cvsSplitBy);
+			String[] entry = line.trim().split(cvsSplitBy);
 			String img = entry[0].trim();
 			String cat = entry[1].trim();
 			if (maps.containsKey(cat)) {
@@ -45,7 +45,7 @@ public class HTMLGenerator {
 	public static void process(Map<String, ArrayList<Integer>> cateMaps,
 			Map<String, ArrayList<Integer>> idMap,
 			ArrayList<Integer> otherFormat) throws IOException {
-		BufferedWriter out = new BufferedWriter(new FileWriter("imageShowSample.html"));
+		BufferedWriter out = new BufferedWriter(new FileWriter("/Users/shuangsu/Documents/workspace/DM/src/ColorStyleClassification/imageShowSample.html"));
 
 		out.write("<html>");
 		out.newLine();
@@ -78,7 +78,7 @@ public class HTMLGenerator {
 				while (count < length) {
 					out.write("      <div class=\"col-3\">");
 					out.newLine();
-					out.write("	       <img src=\"Images/");
+					out.write("	       <img src=\"/Users/shuangsu/Downloads/housingIMG/");
 					int id = list.get(count);
 					out.write(String.valueOf(id));
 					String type = "";
@@ -132,7 +132,7 @@ public class HTMLGenerator {
 				2, 66, 184, 185, 191, 234, 239, 5, 11, 44, 51, 115, 139, 204,
 				218, 246));
 		try {
-			Map<String, ArrayList<Integer>> cateMaps = csvToMap("/Users/Xiaoyu/Documents/workspace/DataMining/src/ColorStyleClassification/firstforest.csv");
+			Map<String, ArrayList<Integer>> cateMaps = csvToMap("/Users/shuangsu/Documents/workspace/DM/src/ColorStyleClassification/testFiles/firstforest.csv");
 			process(cateMaps, idMap, otherFormat);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

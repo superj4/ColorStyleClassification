@@ -1,5 +1,5 @@
-train<-read.csv("train.csv")
-test<-read.csv("test.csv")
+train<-read.csv("testFiles/train.csv")
+test<-read.csv("testFiles/test.csv")
 library(randomForest)
 set.seed(415)
 fit <- randomForest(as.factor(Style) ~ range0 + range1 + range2 + range3 + range4 + range5 + range6 + range7 + range8 + range9 + range10 + range11 + range12 + range13 + range14 + range15 + range16 + range17 + range18 + range19 + range20 + range21 + range22 + range23 + range24 + range25 + range26 + range27 + range28 + range29 + range30 + range41 + range42 + range43 + range44  + range45 + range46 + range47 + range48 + range49 + range50 + range51 + range52 + range53 + range54 + range55 + range56 + range57 + range58 + range59 + range60 + range61 + range62 + range63 + grayscale + contrast, data=train, importance=TRUE, ntree=1000)
@@ -7,4 +7,4 @@ fit <- randomForest(as.factor(Style) ~ range0 + range1 + range2 + range3 + range
 varImpPlot(fit)
 Prediction <- predict(fit, test)
 submit <- data.frame(ID = test$imageID, Category = Prediction)
-write.csv(submit, file = "firstforest.csv", row.names = FALSE)
+write.csv(submit, file = "testFiles/firstforest.csv", row.names = FALSE)

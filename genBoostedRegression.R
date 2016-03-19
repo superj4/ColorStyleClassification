@@ -1,5 +1,5 @@
-train<-read.csv("train.csv")
-test<-read.csv("test.csv")
+train<-read.csv("testFiles/train.csv")
+test<-read.csv("testFiles/test.csv")
 library(gbm)
 library(dplyr)
 category = train$Style
@@ -18,4 +18,4 @@ head(TrainPredictions,n=20)
 head(category,n=20)
 submission = data.frame(ID = test['imageID'], category = TestPredictions)
 submission$max <- apply(submission[,2:15], 1, max)
-write.csv(submission, file = "gbmResult.csv", row.names = FALSE)
+write.csv(submission, file = "testFiles/gbmResult.csv", row.names = FALSE)

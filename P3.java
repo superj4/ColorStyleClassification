@@ -15,6 +15,7 @@ import javax.imageio.ImageIO;
 
 public class P3 {
 	public static final int numSharePerDimension = 4;
+	private static final int K = 5;
 
 	public static void main(String[] args) throws IOException {
 		// read files in the image directory
@@ -22,7 +23,7 @@ public class P3 {
 		File[] paths;
 		paths = f.listFiles();
 		// write output
-		FileOutputStream fos = new FileOutputStream(new File("out.csv"));
+		FileOutputStream fos = new FileOutputStream(new File("/Users/shuangsu/Documents/workspace/DM/src/ColorStyleClassification/testFiles/out.csv"));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
 		String header = "imageID";
 		for (int i = 0; i < Math.pow(numSharePerDimension, 3); i++) {
@@ -36,7 +37,7 @@ public class P3 {
 			if (!path.toString().endsWith("DS_Store")) {
 				String id = path.toString().replaceAll("[^0-9]", "");
 				List<Color> pixels = readIMG(path.toString());
-				KMeans kMeans = new KMeans(pixels, 5);
+				KMeans kMeans = new KMeans(pixels, K);
 				List<Cluster> pointsClusters = kMeans.getPointsClusters();
 				String aLine = writeAline(pointsClusters, pixels.size(), id);
 				bw.write(aLine);
@@ -48,13 +49,13 @@ public class P3 {
 
 	public static String writeAline(List<Cluster> pointsClusters, int size,
 			String id) {
-		Map imgRange = new HashMap();
+		Map<Integer, Double> imgRange = new HashMap<>();
 		StringBuilder sb = new StringBuilder();
 		sb.append(id);
 		double sumGrayscale = 0;
 		double lightest = 0;
 		double darkest = 255;
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < K; i++) {
 			int R = pointsClusters.get(i).getCentroid().r;
 			int G = pointsClusters.get(i).getCentroid().g;
 			int B = pointsClusters.get(i).getCentroid().b;
@@ -75,8 +76,8 @@ public class P3 {
 				sb.append(",0");
 			}
 		}
-		// compute grayscale
-		sumGrayscale = sumGrayscale / 5;
+		// compute gray scale
+		sumGrayscale = sumGrayscale / K;
 		sb.append("," + sumGrayscale);
 		// compute contrast
 		double contrast = lightest - darkest;
