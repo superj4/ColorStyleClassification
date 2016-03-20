@@ -19,11 +19,11 @@ public class P3 {
 
 	public static void main(String[] args) throws IOException {
 		// read files in the image directory
-		File f = new File("/Users/shuangsu/Downloads/housingIMG");
+		File f = new File("Images/");
 		File[] paths;
 		paths = f.listFiles();
 		// write output
-		FileOutputStream fos = new FileOutputStream(new File("/Users/shuangsu/Documents/workspace/DM/src/ColorStyleClassification/testFiles/out.csv"));
+		FileOutputStream fos = new FileOutputStream(new File("src/ColorStyleClassification/testFiles/out.csv"));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
 		String header = "imageID";
 		for (int i = 0; i < Math.pow(numSharePerDimension, 3); i++) {
